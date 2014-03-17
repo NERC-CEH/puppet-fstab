@@ -13,7 +13,5 @@ class nfs::server (
     ensure => $nfs_kernel_server_version
   }
 
-  concat {'/etc/exports' :
-    ensure => present,
-  }
+  concat { '/etc/exports' : }
 }

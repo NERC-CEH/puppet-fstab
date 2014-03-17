@@ -9,7 +9,7 @@
 # - Christopher Johnson - cjohn@ceh.ac.uk
 #
 define nfs::export (
-  $clients
+  $clients,
   $path = $name
 ) {
 
