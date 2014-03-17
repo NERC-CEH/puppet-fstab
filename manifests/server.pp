@@ -20,5 +20,6 @@ class nfs::server (
     path        => '/usr/sbin',
     refreshonly => true,
     subscribe   => File['/etc/exports'],
+    require     => Package['nfs-kernel-server'],
   }
 }
