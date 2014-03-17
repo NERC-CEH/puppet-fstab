@@ -14,4 +14,11 @@ class nfs::server (
   }
 
   concat { '/etc/exports' : }
+
+  # Execute the following when /etc/exports changes
+  exec { 'exportfs -ra' :
+    path        => '/usr/sbin',
+    refreshonly => true,
+    subscribe   => File['/etc/exports'],
+  }
 }
