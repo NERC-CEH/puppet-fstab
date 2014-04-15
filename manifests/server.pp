@@ -5,12 +5,18 @@
 # === Authors
 #
 # - Christopher Johnson - cjohn@ceh.ac.uk
+# - Mike Wilson - mw@ceh.ac.uk
 #
 class nfs::server (
-  $nfs_kernel_server_version = installed
+  $nfs_version = installed
 ) {
-  package {'nfs-kernel-server' :
-    ensure => $nfs_kernel_server_version
+  $nfspackage = $::osfamily ? {
+    'Debian' => ['nfs-kernel-server',],
+    'RedHat' => ['nfs-utils', 'nfs-utils-lib',],
+  }
+
+  package {$nfspackage :
+    ensure => $nfs_version
   }
 
   concat { '/etc/exports' : }
@@ -20,6 +26,6 @@ class nfs::server (
     path        => '/usr/sbin',
     refreshonly => true,
     subscribe   => File['/etc/exports'],
-    require     => Package['nfs-kernel-server'],
+    require     => Package[$nfspackage],
   }
 }

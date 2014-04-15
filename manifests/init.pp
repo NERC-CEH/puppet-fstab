@@ -6,14 +6,20 @@
 # === Authors
 #
 # - Christopher Johnson - cjohn@ceh.ac.uk
+# - Mike Wilson - mw@ceh.ac.uk
 #
 class nfs(
-  $nfs_common_version = installed,
+  $nfs_version = installed,
 ) {
-  package { 'nfs-common':
-    ensure => $nfs_common_version
+  $nfspackage = $::osfamily ? {
+    'Debian' => ['nfs-common',],
+    'RedHat' => ['nfs-utils', 'nfs-utils-lib'],
   }
 
-  # Ensure that nfs-common is installed before setting up a mount
-  Package['nfs-common'] -> Mount<||>
+  package { $nfspackage:
+    ensure => $nfs_version
+  }
+
+  # Ensure that nfs packages are installed before setting up a mount
+  Package[$nfspackage] -> Mount<||>
 }
