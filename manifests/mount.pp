@@ -11,7 +11,8 @@
 define nfs::mount (
   $ensure,
   $device,
-  $options
+  $options,
+  $fstype = 'nfs4'
 ) {
 
   file { $name :
@@ -19,10 +20,10 @@ define nfs::mount (
   }
 
   mount { $name :
-    ensure => $ensure,
-    device => $device,
+    ensure  => $ensure,
+    device  => $device,
     options => $options,
-    fstype  => nfs4,
+    fstype  => $fstype,
     require => File[$name],
   }
 }
