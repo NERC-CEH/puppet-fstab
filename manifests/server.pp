@@ -1,4 +1,4 @@
-# == Class: nfs::server
+# == Class: fstab::server
 #
 # This class installs the nfs-kernel-server package
 #
@@ -7,7 +7,7 @@
 # - Christopher Johnson - cjohn@ceh.ac.uk
 # - Mike Wilson - mw@ceh.ac.uk
 #
-class nfs::server (
+class fstab::server (
   $nfs_version = installed
 ) {
   $nfspackage = $::osfamily ? {

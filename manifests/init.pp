@@ -8,18 +8,32 @@
 # - Christopher Johnson - cjohn@ceh.ac.uk
 # - Mike Wilson - mw@ceh.ac.uk
 #
-class nfs(
-  $nfs_version = installed,
+class fstab(
+  $nfs_version  = installed,
+  $cifs_version = installed,
+  $manage_nfs   = true,
+  $manage_cifs  = false
 ) {
   $nfspackage = $::osfamily ? {
     'Debian' => ['nfs-common',],
     'RedHat' => ['nfs-utils', 'nfs-utils-lib'],
   }
 
-  package { $nfspackage:
-    ensure => $nfs_version
+  $cifspackage = 'cifs-utils' # This is true for Debian and Redhat
+
+  if $manage_nfs {
+    package { $nfspackage:
+      ensure => $nfs_version
+    }
+    # Ensure that nfs packages are installed before setting up a mount
+    Package[$nfspackage] -> Fstab::Mount<||>
   }
 
-  # Ensure that nfs packages are installed before setting up a mount
-  Package[$nfspackage] -> Mount<||>
+  if $manage_cifs {
+    package { $cifspackage:
+      ensure => $cifs_version
+    }
+    # Ensure that nfs packages are installed before setting up a mount
+    Package[$cifspackage] -> Fstab::Mount<||>
+  }
 }

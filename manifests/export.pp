@@ -1,6 +1,6 @@
-# == Define: nfs::export
+# == Define: fstab::export
 #
-# The following defined type allows an nfs export to be defined.
+# The following defined type allows an fstab export to be defined.
 # Multiple declarations of this defined type manage the 
 # /etc/exports file
 #
@@ -8,7 +8,7 @@
 #
 # - Christopher Johnson - cjohn@ceh.ac.uk
 #
-define nfs::export (
+define fstab::export (
   $clients,
   $path = $name
 ) {

@@ -1,22 +1,35 @@
-# == Define: nfs::mount
+# == Define: fstab::mount
 #
-# The following defined type allows a mount to be defined.
-# It will also ensure that a directory is already present
-# for the mount to be applied to.
+# The following defined type allows a mount to be defined. It will also ensure
+# that a directory is already present for the mount to be applied to.
 #
 # === Authors
 #
 # - Christopher Johnson - cjohn@ceh.ac.uk
 #
-define nfs::mount (
+define fstab::mount (
   $ensure,
   $device,
   $options,
-  $fstype = 'nfs4'
+  $fstype           = 'nfs4',
+  $credentials_file = undef,
+  $username         = undef,
+  $password         = undef
 ) {
 
   file { $name :
     ensure => directory,
+  }
+
+  # Some CIFS shares require a username and password combination
+  # If provided we can create the credentials file on disk. This will need to
+  # be supplied to the options when creating this mount.
+  if $credentials_file {
+    file { $credentials_file:
+      mode    => 400,
+      content => template('fstab/credentials.erb'),
+      before  => Mount[$name],
+    }
   }
 
   mount { $name :
