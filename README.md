@@ -53,5 +53,5 @@ This module has been tested on Ubuntu 14.04 and Centos 6
 
 ## Contributors
 
-Mike Wilson - mw@ceh.ac.uk
-Christopher Johnson - cjohn@ceh.ac.uk
+- Mike Wilson - mw@ceh.ac.uk
+- Christopher Johnson - cjohn@ceh.ac.uk
