@@ -43,7 +43,7 @@ Mount to a CIFS share using username and password
       credentials_file => $credentials,
       username         => 'msusername',
       password         => 'mspassword',
-      options          => "credentials=${$credentials},sec=ntlm,uid=owner,gid=group,iocharset=utf-8",
+      options          => "credentials=${credentials},sec=ntlm,uid=owner,gid=group,iocharset=utf-8",
       fstype           => 'cifs',
     }
 
@@ -53,5 +53,5 @@ This module has been tested on Ubuntu 14.04 and Centos 6
 
 ## Contributors
 
-Mike Wilson - mw@ceh.ac.uk
-Christopher Johnson - cjohn@ceh.ac.uk
+- Mike Wilson - mw@ceh.ac.uk
+- Christopher Johnson - cjohn@ceh.ac.uk
