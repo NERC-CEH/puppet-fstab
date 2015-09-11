@@ -1,0 +1,24 @@
+{
+  "name": "ceh-fstab",
+  "version": "1.0.0",
+  "author": "Centre for Ecology & Hydrology",
+  "license": "GPL-2.0",
+  "summary": "A lightweight puppet module for managing fstab mounts and server exports",
+  "source": "https://github.com/NERC-CEH/puppet-fstab",
+  "project_page": "https://forge.puppetlabs.com/ceh/fstab",
+  "issues_url": "https://github.com/NERC-CEH/puppet-fstab/issues",
+  "tags": ["fstab", "mounting", "mount", "nfs"],
+  "operatingsystem_support": [
+    {
+    "operatingsystem": "Ubuntu",
+    "operatingsystemrelease": [ "12.04", "14.04" ]
+    },
+    {
+    "operatingsystem": "CentOS",
+    "operatingsystemrelease": [ "6" ]
+    }
+   ],
+  "dependencies": [
+    { "name": "puppetlabs/concat", "version_requirement": ">=1.1.2 <2.0.0" }
+  ]
+}
