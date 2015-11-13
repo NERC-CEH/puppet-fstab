@@ -12,7 +12,8 @@ class fstab(
   $nfs_version  = installed,
   $cifs_version = installed,
   $manage_nfs   = true,
-  $manage_cifs  = false
+  $manage_cifs  = false,
+  $mounts       = {},
 ) {
   $nfspackage = $::osfamily ? {
     'Debian' => ['nfs-common',],
@@ -35,5 +36,9 @@ class fstab(
     }
     # Ensure that nfs packages are installed before setting up a mount
     Package[$cifspackage] -> Fstab::Mount<||>
+  }
+  
+  if !empty($mounts) {
+    create_resources('fstab::mount', $mounts)
   }
 }
