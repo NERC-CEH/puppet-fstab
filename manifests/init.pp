@@ -14,6 +14,7 @@ class fstab(
   $manage_nfs   = true,
   $manage_cifs  = false,
   $mounts       = {},
+  $exports      = {},
 ) {
   $nfspackage = $::osfamily ? {
     'Debian' => ['nfs-common',],
@@ -40,5 +41,9 @@ class fstab(
   
   if !empty($mounts) {
     create_resources('fstab::mount', $mounts)
+  }
+  
+  if !empty($exports) {
+    create_resources('fstab::export', $exports)
   }
 }
