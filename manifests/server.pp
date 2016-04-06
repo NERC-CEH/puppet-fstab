@@ -10,12 +10,10 @@
 class fstab::server (
   $nfs_version = installed
 ) {
-  $nfspackage = $::osfamily ? {
-    'Debian' => ['nfs-kernel-server',],
-    'RedHat' => ['nfs-utils', 'nfs-utils-lib',],
-  }
+  
+  $nfs_server_package = $::fstab::params::nfs_server_package
 
-  package {$nfspackage :
+  package {$nfs_server_package :
     ensure => $nfs_version
   }
 
@@ -26,6 +24,6 @@ class fstab::server (
     path        => '/usr/sbin',
     refreshonly => true,
     subscribe   => File['/etc/exports'],
-    require     => Package[$nfspackage],
+    require     => Package[$nfs_server_package],
   }
 }

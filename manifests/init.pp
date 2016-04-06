@@ -1,4 +1,4 @@
-# == Class: nfs
+# == Class: fstab
 #
 # This class installs the nfs-common package
 # this will allow mounts to be made for nfs shares
@@ -15,16 +15,13 @@ class fstab(
   $manage_cifs  = false,
   $mounts       = {},
   $exports      = {},
-) {
-  $nfspackage = $::osfamily ? {
-    'Debian' => ['nfs-common',],
-    'RedHat' => ['nfs-utils', 'nfs-utils-lib'],
-  }
+) inherits fstab::params {
 
-  $cifspackage = 'cifs-utils' # This is true for Debian and Redhat
+  $nfspackage = $::fstab::params::nfs_client_package
+  $cifspackage = $::fstab::params::cifspackage
 
   if $manage_nfs {
-    package { $nfspackage:
+    package { $nfs_client_package:
       ensure => $nfs_version
     }
     # Ensure that nfs packages are installed before setting up a mount
