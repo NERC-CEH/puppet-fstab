@@ -6,19 +6,25 @@
 # === Authors
 #
 # - Christopher Johnson - cjohn@ceh.ac.uk
+# - Mike Wilson - mw@ceh.ac.uk
 #
 define fstab::mount (
   $ensure,
   $device,
   $options,
+  $manage_dir       = true,
   $fstype           = 'nfs4',
   $credentials_file = undef,
   $username         = undef,
   $password         = undef
 ) {
 
-  file { $name :
-    ensure => directory,
+  validate_bool($manage_dir)
+
+  if $manage_dir {
+    file { $name :
+      ensure => directory,
+    }
   }
 
   # Some CIFS shares require a username and password combination
