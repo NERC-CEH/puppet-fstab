@@ -32,7 +32,7 @@ define fstab::mount (
   # be supplied to the options when creating this mount.
   if $credentials_file {
     file { $credentials_file:
-      mode    => 400,
+      mode    => '400',
       backup  => false,
       content => template('fstab/credentials.erb'),
       before  => Mount[$name],
