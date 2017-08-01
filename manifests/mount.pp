@@ -12,6 +12,7 @@ define fstab::mount (
   $ensure,
   $device,
   $options,
+  $remounts         = false,
   $manage_dir       = true,
   $fstype           = 'nfs4',
   $credentials_file = undef,
@@ -32,7 +33,7 @@ define fstab::mount (
   # be supplied to the options when creating this mount.
   if $credentials_file {
     file { $credentials_file:
-      mode    => '400',
+      mode    => '0400',
       backup  => false,
       content => template('fstab/credentials.erb'),
       before  => Mount[$name],
@@ -40,10 +41,11 @@ define fstab::mount (
   }
 
   mount { $name :
-    ensure  => $ensure,
-    device  => $device,
-    options => $options,
-    fstype  => $fstype,
-    require => File[$name],
+    ensure   => $ensure,
+    device   => $device,
+    options  => $options,
+    remounts => $remounts,
+    fstype   => $fstype,
+    require  => File[$name],
   }
 }
