@@ -46,6 +46,5 @@ define fstab::mount (
     options  => $options,
     remounts => $remounts,
     fstype   => $fstype,
-    require  => File[$name],
   }
 }
